@@ -43,9 +43,7 @@ export const simpleCalculator = (
   return null;
 };
 
-const isInputValid = (
-  input: RawCalculatorInput,
-): input is ValidCalculatorInput => {
+const isInputValid = (input: RawCalculatorInput): input is ValidCalculatorInput => {
   const { a, b, action } = input;
 
   const actionValid = Object.values(Action).includes(action as Action);
