@@ -4,12 +4,12 @@ import { simpleCalculator, Action } from './index';
 
 describe('simpleCalculator tests', () => {
   test('should add two numbers', () => {
-    const result = simpleCalculator({ a: 10, b: 'auto', action: Action.Add });
+    const result = simpleCalculator({ a: 10, b: 5, action: Action.Add });
     expect(result).toBe(15);
   });
 
-  test('should subtract two numbers', () => {
-    expect(simpleCalculator({ a: 10, b: 4, action: Action.Subtract })).toBe(6);
+  test('should substract two numbers', () => {
+    expect(simpleCalculator({ a: 10, b: 4, action: Action.Substract })).toBe(6);
   });
 
   test('should multiply two numbers', () => {

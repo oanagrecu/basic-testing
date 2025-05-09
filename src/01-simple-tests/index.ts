@@ -1,6 +1,6 @@
 export enum Action {
   Add = '+',
-  Subtract = '-',
+  Substract = '-',
   Divide = '/',
   Multiply = '*',
   Exponentiate = '^',
@@ -27,7 +27,7 @@ export const simpleCalculator = (
     switch (action) {
       case Action.Add:
         return a + b;
-      case Action.Subtract:
+      case Action.Substract:
         return a - b;
       case Action.Multiply:
         return a * b;
@@ -43,7 +43,9 @@ export const simpleCalculator = (
   return null;
 };
 
-const isInputValid = (input: RawCalculatorInput): input is ValidCalculatorInput => {
+const isInputValid = (
+  input: RawCalculatorInput,
+): input is ValidCalculatorInput => {
   const { a, b, action } = input;
 
   const actionValid = Object.values(Action).includes(action as Action);
