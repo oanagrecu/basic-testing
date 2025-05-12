@@ -1,6 +1,5 @@
 import { generateLinkedList } from './index';
 describe('generateLinkedList', () => {
-  // Regular comparison using toStrictEqual
   test('should generate linked list from values 1', () => {
     const result = generateLinkedList([1, 2, 3]);
 

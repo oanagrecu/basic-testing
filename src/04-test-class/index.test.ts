@@ -6,7 +6,6 @@ import {
   rejectCustomError,
 } from './index';
 
-// --- Test for resolveValue ---
 describe('resolveValue', () => {
   test('should resolve provided value', async () => {
     const value = 42;
@@ -14,7 +13,6 @@ describe('resolveValue', () => {
   });
 });
 
-// --- Test for throwError ---
 describe('throwError', () => {
   test('should throw error with provided message', () => {
     const message = 'Test error';
@@ -26,7 +24,6 @@ describe('throwError', () => {
   });
 });
 
-// --- Test for throwCustomError ---
 describe('throwCustomError', () => {
   test('should throw custom error', () => {
     expect(() => throwCustomError()).toThrow(MyAwesomeError);
@@ -36,7 +33,6 @@ describe('throwCustomError', () => {
   });
 });
 
-// --- Test for rejectCustomError ---
 describe('rejectCustomError', () => {
   test('should reject custom error', async () => {
     await expect(rejectCustomError()).rejects.toThrow(MyAwesomeError);
@@ -46,7 +42,6 @@ describe('rejectCustomError', () => {
   });
 });
 
-// --- BankAccount class for testing ---
 class BankAccount {
   private balance = 0;
 
@@ -74,7 +69,6 @@ class BankAccount {
   }
 }
 
-// --- Tests for BankAccount ---
 describe('BankAccount', () => {
   let accountA: BankAccount;
   let accountB: BankAccount;
