@@ -17,7 +17,7 @@
   "devDependencies": {
     "@babel/preset-env": "^7.24.0",
     "@babel/preset-typescript": "^7.23.3",
-    "@types/jest": "^29.5.12",
+    "@types/jest": "^29.5.14",
     "@types/lodash": "^4.14.202",
     "@types/node": "^20.11.24",
     "@typescript-eslint/eslint-plugin": "^7.0.1",
@@ -27,14 +27,25 @@
     "eslint-plugin-prettier": "^5.1.3",
     "jest": "^29.7.0",
     "prettier": "^3.2.5",
-    "ts-jest": "^29.1.2",
+    "ts-jest": "^29.3.2",
     "ts-loader": "^9.5.1",
     "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0",
-    "typescript": "^5.3.3"
+    "typescript": "^5.5.4"
   },
   "dependencies": {
     "axios": "^1.6.7",
     "lodash": "^4.17.21"
-  }
+  },
+  "main": ".eslintrc.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oanagrecu/basic-testing.git"
+  },
+  "keywords": [],
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/oanagrecu/basic-testing/issues"
+  },
+  "homepage": "https://github.com/oanagrecu/basic-testing#readme"
 }

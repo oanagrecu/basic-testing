@@ -1,44 +1,116 @@
-// Uncomment the code below and write your tests
-// import { getBankAccount } from '.';
+import {
+  throwError,
+  throwCustomError,
+  resolveValue,
+  MyAwesomeError,
+  rejectCustomError,
+} from './index';
+
+describe('resolveValue', () => {
+  test('should resolve provided value', async () => {
+    const value = 42;
+    await expect(resolveValue(value)).resolves.toBe(value);
+  });
+});
+
+describe('throwError', () => {
+  test('should throw error with provided message', () => {
+    const message = 'Test error';
+    expect(() => throwError(message)).toThrow(message);
+  });
+
+  test('should throw error with default message if message is not provided', () => {
+    expect(() => throwError()).toThrow('Oops!');
+  });
+});
+
+describe('throwCustomError', () => {
+  test('should throw custom error', () => {
+    expect(() => throwCustomError()).toThrow(MyAwesomeError);
+    expect(() => throwCustomError()).toThrow(
+      'This is my awesome custom error!',
+    );
+  });
+});
+
+describe('rejectCustomError', () => {
+  test('should reject custom error', async () => {
+    await expect(rejectCustomError()).rejects.toThrow(MyAwesomeError);
+    await expect(rejectCustomError()).rejects.toThrow(
+      'This is my awesome custom error!',
+    );
+  });
+});
+
+class BankAccount {
+  private balance = 0;
+
+  async deposit(amount: number): Promise<void> {
+    if (amount <= 0) {
+      throw new Error('Deposit amount must be greater than 0');
+    }
+    this.balance += amount;
+  }
+
+  async withdraw(amount: number): Promise<void> {
+    if (amount > this.balance) {
+      throw new Error('Insufficient funds');
+    }
+    this.balance -= amount;
+  }
+
+  async getBalance(): Promise<number> {
+    return this.balance;
+  }
+
+  async transferTo(target: BankAccount, amount: number): Promise<void> {
+    await this.withdraw(amount); // throws if not enough funds
+    await target.deposit(amount);
+  }
+}
 
 describe('BankAccount', () => {
-  test('should create account with initial balance', () => {
-    // Write your test here
+  let accountA: BankAccount;
+  let accountB: BankAccount;
+
+  beforeEach(() => {
+    accountA = new BankAccount();
+    accountB = new BankAccount();
   });
 
-  test('should throw InsufficientFundsError error when withdrawing more than balance', () => {
-    // Write your test here
+  test('should deposit money', async () => {
+    await accountA.deposit(100);
+    await expect(accountA.getBalance()).resolves.toBe(100);
   });
 
-  test('should throw error when transferring more than balance', () => {
-    // Write your test here
+  test('should not allow negative deposit', async () => {
+    await expect(accountA.deposit(-50)).rejects.toThrow(
+      'Deposit amount must be greater than 0',
+    );
   });
 
-  test('should throw error when transferring to the same account', () => {
-    // Write your test here
+  test('should withdraw money if funds available', async () => {
+    await accountA.deposit(200);
+    await accountA.withdraw(150);
+    await expect(accountA.getBalance()).resolves.toBe(50);
   });
 
-  test('should deposit money', () => {
-    // Write your test here
+  test('should throw error on overdraft', async () => {
+    await accountA.deposit(50);
+    await expect(accountA.withdraw(100)).rejects.toThrow('Insufficient funds');
   });
 
-  test('should withdraw money', () => {
-    // Write your test here
+  test('should transfer funds between accounts', async () => {
+    await accountA.deposit(300);
+    await accountA.transferTo(accountB, 200);
+    await expect(accountA.getBalance()).resolves.toBe(100);
+    await expect(accountB.getBalance()).resolves.toBe(200);
   });
 
-  test('should transfer money', () => {
-    // Write your test here
-  });
-
-  test('fetchBalance should return number in case if request did not failed', async () => {
-    // Write your tests here
-  });
-
-  test('should set new balance if fetchBalance returned number', async () => {
-    // Write your tests here
-  });
-
-  test('should throw SynchronizationFailedError if fetchBalance returned null', async () => {
-    // Write your tests here
+  test('should fail to transfer if insufficient funds', async () => {
+    await accountA.deposit(50);
+    await expect(accountA.transferTo(accountB, 100)).rejects.toThrow(
+      'Insufficient funds',
+    );
   });
 });

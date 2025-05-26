@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 module.exports = {
   testEnvironment: 'node',
   testPathIgnorePatterns: ['/node_modules/'],

@@ -1,6 +1,6 @@
 export enum Action {
   Add = '+',
-  Subtract = '-',
+  Substract = '-',
   Divide = '/',
   Multiply = '*',
   Exponentiate = '^',
@@ -27,7 +27,7 @@ export const simpleCalculator = (
     switch (action) {
       case Action.Add:
         return a + b;
-      case Action.Subtract:
+      case Action.Substract:
         return a - b;
       case Action.Multiply:
         return a * b;
